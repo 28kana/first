@@ -1,4 +1,6 @@
 <?php
+use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,5 +14,21 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+        return view('login');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@home')->name('home');
+Route::get('/','ProductController@index')->name('product');
+Route::get('/create','ProductController@create')->name('create');
+Route::get('/search','ProductController@search')->name('search');
+Route::post('/store','ProductController@store')->name('store');
+Route::get('/show/{id}','ProductController@show')->name('show');
+Route::get('/edit/{id}','ProductController@edit')->name('edit');
+Route::post('/update','ProductController@update')->name('update');
+Route::delete('/destroy{id}', 'ProductController@destroy')->name('destroy');
+
+//機能
+Route::resource('product', 'ProductController', ['only' => ['index','create','show','edit','store', 'destroy']]);
+
