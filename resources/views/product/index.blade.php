@@ -2,6 +2,12 @@
 
 @section('content')
 
+@if (session('err_msg'))
+  <p class="text-danger">
+   {{ session('err_msg') }}
+  </p>
+@endif
+
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a href="{{ route('product.create') }}" class="btn btn-outline-secondary" role="button">
                 <i class="fa fa-reply mr-1 " aria-hidden="true"></i>{{ __('新規登録') }}</a>
@@ -15,7 +21,6 @@
   <label for="company_id">{{ __('商品名') }}<span class="badge badge-danger ml-2"></span></label>
     <input type="text" name="keyword" value="{{ $keyword }}">
     <input type="submit" value="検索">
-    <!-- <input type="reset" name="reset" value="クリア" > -->
   </form>
 </div>
 
