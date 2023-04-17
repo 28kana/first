@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +17,11 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+
+// Route::get('/','ProductController@index')->name('product');
+// Route::get('/show/{id}','ProductController@show')->name('show');
+// Route::post('/pay', 'ProductController@pay')->name('pay');
+
+
+
 });

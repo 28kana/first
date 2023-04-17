@@ -26,7 +26,29 @@
       <td>{{ $product->comment }}</td> 
       @if (!Auth::guest())
       <td><a href="{{ route('product.edit', $product->id) }}" class="btn btn-primary">編集</a></td>
+      <td><form action="{{ route('product.pay',$product->id) }}" method="POST" class="form-horizontal">
+      {{ csrf_field() }}
+      <button type="submit" name="pay">決済</button>
+      </form>
+      </td>
       @endif
+      
+      
+ <!-- <form action="{{ asset('pay') }}" method="POST">
+    {{ csrf_field() }}
+ <script
+     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+     data-key="{{ env('STRIPE_KEY') }}"
+     data-amount="100"
+     data-name="Stripe Demo"
+     data-label="決済をする"
+     data-description="決済しますか"
+     data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+     data-locale="auto"
+     data-currency="JPY">
+ </script>
+</form> -->
+
       <div class="d-flex justify-content-between pt-3">
         <a href="{{ route('product.index') }}" class="btn btn-outline-secondary" role="button">
             <i class="fa fa-reply mr-1" aria-hidden="true"></i>{{ __('戻る') }}

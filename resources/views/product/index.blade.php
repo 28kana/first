@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 @if (session('err_msg'))
   <p class="text-danger">
    {{ session('err_msg') }}
@@ -17,15 +18,12 @@
 
 <br>
 <div>
-  <form action="{{ route('product.index') }}" method="GET">
-  <label for="company_id">{{ __('商品名') }}<span class="badge badge-danger ml-2"></span></label>
-    <input type="text" name="keyword" value="{{ $keyword }}">
-    <input type="submit" value="検索">
-  </form>
+  <label for="product_name">{{ __('商品名') }}<span class="badge badge-danger ml-2"></span></label>
+    <input type="text" name="keyword" value="{{ $keyword }}" id="keyword">
+    <button type="button" value="検索" id="get_product">検索</button>  
 </div>
 
 <div>
- <form action="{{ route('product.index') }}" method="GET">
   <label for="company_id">{{ __('企業名') }}<span class="badge badge-danger ml-2"></span></label>
             <select name ="company_id" id ="company_id">
                 <option value = "">選択してください</option>
@@ -33,19 +31,41 @@
                 <option value = "2">エリン</option>
                 <option value = "3">シティショップ</option>
             </select>
-    <input type="submit" value="検索">
- </form>
+     <button type="button" value="検索" id="get_product">検索</button>  
 </div>
 
- <table class ="table table-striped">
+
+<div>
+  <form action="{{ route('product.index') }}" method="GET">
+  <label for="price">{{ __('価格') }}<span class="badge badge-danger ml-2"></span></label>
+  <input placeholder="上限値を入力" type="text" name="upper" >
+  <input placeholder="下限値を入力" type="text" name="lower" >
+  <input type="submit" value="検索">
+  </form>
+</div>
+
+<div>
+  <form action="{{ route('product.index') }}" method="GET">
+  <label for="stock">{{ __('在庫') }}<span class="badge badge-danger ml-2"></span></label>
+  <input placeholder="上限値を入力" type="text" name="high" >
+  <input placeholder="下限値を入力" type="text" name="low" >
+  <input type="submit" value="検索">
+  </form>
+</div>
+
+
+
+
+ <table class ="table table-striped" id="table">
         <thead>
         <tr>
-            <th>ID</th>
+           
+            <th scope="col">@sortablelink('id', 'ID')</th>
             <th>商品画像</th>
-            <th>商品名</th>
-            <th>価格</th>
-            <th>在庫数</th>
-            <th>企業名</th>
+            <th scope="col">@sortablelink('product_name', '商品名')</th>
+            <th scope="col">@sortablelink('price', '価格')</th>
+            <th scope="col">@sortablelink('stock', '在庫')</th>
+            <th scope="col">@sortablelink('company_name', '企業名')</th>
             <th>詳細</th>
             <th>削除</th>
          </tr>
@@ -53,8 +73,8 @@
         <tbody>
         @foreach( $products as $product )
             
-            <tr>
-                <td>{{ $product->id }}</td>
+            <tr id="product_tr">
+                <th scope="row">{{ $product->id }}</th>
                 <td><img src="{{ asset('storage/'.$product->img_path) }}" width="150" height="150"></td>
                 <td>{{ $product->product_name}}</td>
                 <td>{{ $product->price }}</td>
@@ -62,10 +82,12 @@
                 <td>{{ $product->company->company_name }}</td>
                 <td><a href="{{ route('product.show', $product) }}" class="btn btn-primary">詳細</a></td>
                 <td> 
-                    <form action="{{ route('product.destroy', $product->id) }}" method="POST">
+                <form action="{{ route('product.destroy', $product->id) }}" method="POST">
           @csrf
           @method('DELETE')
-          <input type="submit" value="削除" class="btn btn-danger" onclick='return confirm("削除しますか？");'>
+          <!-- <input type="submit" value="削除" class="btn btn-danger" onclick='return confirm("削除しますか？");'> -->
+          <input type="submit" value="削除" class="btn btn-danger" onclick="delete_data()" id="deleteTarget">
+
                  </form>
                 </td> 
             
@@ -75,5 +97,8 @@
         @endforeach
       </tbody>
     </table> 
+
+
+
 @endsection
  

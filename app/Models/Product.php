@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Company;
+use Kyslik\ColumnSortable\Sortable;
 
 
 class Product extends Model
 {
+    use Sortable;
+    public $sortable = ['id','product_name','price','stock','company_id'];
+
+
     public function user(){
         return $this->belongsTo('App\User');//リレーション
 
@@ -82,11 +87,11 @@ class Product extends Model
     }
 
     //検索
-    public static function serchProduct($products,$request){
+    public static function searchProduct($products,$request){
 
         $keyword = $request->input('keyword');
         $company_id = $request->input('company_id');
-
+        
         $query = Product::query();
 
         if(!empty($keyword)) {
@@ -99,7 +104,39 @@ class Product extends Model
         }
 
         $products = $query->get();
+        
 
         return $products;
     }
+
+    public static function newsearchProduct($products,$request){
+       
+        $upper = $request->input('upper'); //最大値
+        $lower = $request->input('lower'); //最小値
+        $high = $request->input('high'); //最大値
+        $low = $request->input('low'); 
+        $query = Product::query();
+
+        if(!empty($upper)) {
+            $query->where('price', '>=', $upper);
+        }
+
+        if(!empty($lower)) {
+            $query->where('price', '<=', $lower);
+        }
+
+        if(!empty($high)) {
+            $query->where('stock', '>=', $high);
+        }
+
+        if(!empty($low)) {
+            $query->where('stock', '<=', $low);
+        }
+
+
+        $products = $query->get();
+
+        return $products;
+    }
+
 }

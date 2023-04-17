@@ -39,9 +39,8 @@ class ProductRequest extends FormRequest
             'company_id' => 'メーカー',
             'price' => '価格',
             'stock' => '在庫数',
-            // 'comment' => 'コメント',
-            // 'img_path' => '商品画像',
-
+            
+    
     ];
 }
 
