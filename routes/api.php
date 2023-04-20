@@ -1,5 +1,6 @@
 <?php
 
+// use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProductController;
 
@@ -18,10 +19,9 @@ use App\Http\Controllers\ProductController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 
-// Route::get('/','ProductController@index')->name('product');
-// Route::get('/show/{id}','ProductController@show')->name('show');
-// Route::post('/pay', 'ProductController@pay')->name('pay');
 
 
 
 });
+
+Route::post('/pay/{id}', 'ProductController@pay')->name('product.pay');

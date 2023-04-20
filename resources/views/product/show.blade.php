@@ -39,8 +39,8 @@
  <script
      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
      data-key="{{ env('STRIPE_KEY') }}"
-     data-amount="100"
-     data-name="Stripe Demo"
+     data-amount="{{ $product->price }}"
+     data-name="{{ $product->product_name }}"
      data-label="決済をする"
      data-description="決済しますか"
      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"

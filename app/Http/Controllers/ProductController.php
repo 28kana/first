@@ -30,7 +30,7 @@ class ProductController extends Controller
         $keyword = $request->input('keyword');
         $products = Product::newsearchProduct($products,$request);
         $products = Product::sortable()->get();
-        // dd($request);
+        // dd($products);
         return view('product.index',compact('products','keyword'));
         // return view('product.index',compact('products'));
 
@@ -166,7 +166,7 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         if($product->stock > 0){
-            // Stripe::setApiKey(env('STRIPE_SECRET'));//シークレットキー
+        //     Stripe::setApiKey(env('STRIPE_SECRET'));//シークレットキー
     
         //   $charge = Charge::create(array(
         //        'amount' => $product->price,

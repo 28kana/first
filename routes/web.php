@@ -23,9 +23,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/','ProductController@index')->name('product');
 Route::get('/create','ProductController@create')->name('create');
-// Route::get('/search/{keyword}/{company_id}','ProductController@search')->name('search');
-Route::get('/search','ProductController@search')->name('search');
-Route::get('/product/index/{keyword}','ProductController@search');
+Route::get('/search/{keyword}/{company_id}','ProductController@search')->name('search');
+// Route::get('/search','ProductController@search')->name('search');
+// Route::get('/product/index/{keyword}','ProductController@search');
 
 Route::post('/store','ProductController@store')->name('store');
 Route::get('/show/{id}','ProductController@show')->name('show');

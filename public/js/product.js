@@ -1,13 +1,13 @@
 
 $(function(){
-  // console.log('テスト');
+  console.log('テスト');
     buttonclick();
     delete_data();
 });
 
 function buttonclick(){
-    $('#get_product').on('click', function() {
-    // console.log('テスト');
+    $('#getProduct').on('click', function() {
+    console.log('テスト');
      let serch_keyword = $('#keyword').val();
      let serch_id = $('#company_id').val();
      console.log(serch_keyword);
@@ -44,7 +44,7 @@ function buttonclick(){
 //削除
 
 function delete_data(){
-  // console.log('テスト');
+  console.log('テスト');
     $('#deleteTarget').on('click', '[id=deteleTarget]',function() {
       let deleteConfirm = confirm('削除してよろしいでしょうか？');
       let clickEle;
