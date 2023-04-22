@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+@if (session('err_msg'))
+  <p class="text-danger">
+   {{ session('err_msg') }}
+  </p>
+@endif
+
 <h1>詳細</h1>
 <table class="table table-striped">
   <thead>
@@ -33,22 +40,7 @@
       </td>
       @endif
       
-      
- <!-- <form action="{{ asset('pay') }}" method="POST">
-    {{ csrf_field() }}
- <script
-     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-     data-key="{{ env('STRIPE_KEY') }}"
-     data-amount="{{ $product->price }}"
-     data-name="{{ $product->product_name }}"
-     data-label="決済をする"
-     data-description="決済しますか"
-     data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-     data-locale="auto"
-     data-currency="JPY">
- </script>
-</form> -->
-
+     
       <div class="d-flex justify-content-between pt-3">
         <a href="{{ route('product.index') }}" class="btn btn-outline-secondary" role="button">
             <i class="fa fa-reply mr-1" aria-hidden="true"></i>{{ __('戻る') }}

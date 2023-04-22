@@ -12,51 +12,69 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/product.js') }}" defer></script>
+    <!-- <script src="{{ asset('js/product.js') }}" defer></script> -->
 
 <script>
-    $(function(){
-  console.log('テスト');
-    buttonclick();
-    delete_data();
-});
-
-function buttonclick(){
+// 画面ロード時に読み込まれる。
+$(function() {
+    console.log('test');
+    $(document).ready(function() {
+    // #getProductを押下するとイベント発火
     $('#getProduct').on('click', function() {
     console.log('テスト');
-     let serch_keyword = $('#keyword').val();
-     let serch_id = $('#company_id').val();
-     console.log(serch_keyword);
-     console.log(serch_id);
-      if(!serch_keyword) {
-         serch_keyword = null;
+        let search_keyword = $('#keyword').val();
+        let search_id = $('#company_id').val();
+        let search_upper = $('#upper').val();
+        let search_lower = $('#lower').val();
+        let search_higt = $('#higt').val();
+        let search_low = $('#low').val();
+
+        console.log(search_keyword);
+        console.log(search_id);
+        console.log(search_upper);
+        console.log(search_lower);
+        console.log(search_higt);
+        console.log(search_low);
+
+        if (!search_keyword) {
+         search_keyword = null;
       
-        }
+    }
+    $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+    $.ajax({
 
-        $.ajax({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+    },
+        url: '/search',
+        // url: '/search' + '/' + keyword,
+        // url: '/search/' + search_keyword + '/'+ search_id + '/'+ search_upper + '/'+ search_lower + '/'+ search_higt + '/'+ search_low,
+        type: 'GET',
+        data: {'keyword': search_keyword,
+                'company_id': search_id,
+                'upper': search_upper,
+                'lower': search_lower,
+                'higt': search_higt,
+                'low': search_low,
+                },
+        // dataType: 'json',
+    })
 
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-         },
-          url: '/search/' + serch_keyword + '/'+ serch_id,
-          type: 'GET',
-          data: {'keyword': serch_keyword,
-                 'company_id': serch_id,
-                 },
-          dataType: 'json',
-        })
-  
-       .done(function(data) {
+    .done(function(data) {
+        console.log(data);
+
         alert('成功');
         get_value(data);
 
-        })
-  
-       .fail(function(jqXHR,textStatus,errorThorown) {
-          alert('エラー');
-        });
     })
-};
+
+    .fail(function(jqXHR,textStatus,errorThorown) {
+        alert('エラー');
+    });
+    })
+        
+    })
+});
 //削除
 
 function delete_data(){
@@ -114,7 +132,7 @@ $.each(data[0],function (key,value){
   if(comment == null){
     comment = "なし";
   }
-  txt =
+  txt =`
     <tr id="product_tr">
     <th scope="row">$(id)</th>
     <td>$(name)</td>
@@ -122,20 +140,20 @@ $.each(data[0],function (key,value){
     <td>$(price)</td>
     <td>$(stock)</td>
     <td>$(comment)</td>
-
+    `
     if(img_path != null){
-      txt +=
-      <td id="img_path"><img src="storage/${img_path}" width="150" height="150" /></td>
+      txt +=`
+      <td id="img_path"><img src="storage/${img_path}" width="150" height="150" /></td>`
     }else{
-      txt +=
-      <td id="img_path">画像なし</td>
+      txt +=`
+      <td id="img_path">画像なし</td>`
     }
-    txt +=
+    txt +=`
     
     <td><button type="button" class="btn btn-primary" onclick="location.href='product/{{ $product->id }}">詳細</button></td>
     <td><button type="button" class="btn btn-danger"  id="deleteTarget" data-id="$(id)">削除</button></td>
   
-  </tr>
+  </tr>`
   $('#table').append(txt);
 })
 }

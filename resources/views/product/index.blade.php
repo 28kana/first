@@ -17,6 +17,7 @@
 <h1>商品情報一覧</h1>
 
 <br>
+<form action="" method="GET">
 <div>
   <label for="product_name">{{ __('商品名') }}<span class="badge badge-danger ml-2"></span></label>
     <input type="text" name="keyword" value="{{ $keyword }}" id="keyword">
@@ -32,27 +33,19 @@
                 <option value = "2">エリン</option>
                 <option value = "3">シティショップ</option>
             </select>
-     <button type="button" value="検索" id="get_product">検索</button>  
 </div>
-
-
 <div>
-  <form action="{{ route('product.index') }}" method="GET">
   <label for="price">{{ __('価格') }}<span class="badge badge-danger ml-2"></span></label>
-  <input placeholder="上限値を入力" type="text" name="upper" >
-  <input placeholder="下限値を入力" type="text" name="lower" >
-  <input type="submit" value="検索">
-  </form>
-</div>
+  <input placeholder="上限値を入力" type="text" name="upper" id ="upper">
+  <input placeholder="下限値を入力" type="text" name="lower" id="lower">
+  </div>
 
 <div>
-  <form action="{{ route('product.index') }}" method="GET">
   <label for="stock">{{ __('在庫') }}<span class="badge badge-danger ml-2"></span></label>
-  <input placeholder="上限値を入力" type="text" name="high" >
-  <input placeholder="下限値を入力" type="text" name="low" >
-  <input type="submit" value="検索">
-  </form>
+  <input placeholder="上限値を入力" type="text" name="high" id="higt">
+  <input placeholder="下限値を入力" type="text" name="low"  id="low">
 </div>
+</form>
 
 
 

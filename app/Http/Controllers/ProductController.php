@@ -28,7 +28,6 @@ class ProductController extends Controller
         // dd($request);
         $products = Product::all();
         $keyword = $request->input('keyword');
-        $products = Product::newsearchProduct($products,$request);
         $products = Product::sortable()->get();
         // dd($products);
         return view('product.index',compact('products','keyword'));
@@ -39,9 +38,11 @@ class ProductController extends Controller
 
     //検索
     public function search(Request $request){
-        // dd($request);
-        $products = Product::searchProduct($products,$request);
+        dd($request);
+        $products = Product::all();
         $keyword = $request->input('keyword');
+        $products = Product::newsearchProduct($products,$request);
+        
         $json[] = $products;
         $products = Company::all();
         $json[] = $companirs;
@@ -136,49 +137,11 @@ class ProductController extends Controller
         
     }
     //決済
-    // public function pay(Request $request){
-
-    //     try
-    //     {
-    //         Stripe::setApiKey(env('STRIPE_SECRET'));
-
-    //         $customer = Customer::create(array(
-    //             'email' => $request->stripeEmail,
-    //             'source' => $request->stripeToken
-    //         ));
-
-    //         $charge = Charge::create(array(
-    //             'customer' => $product->id,
-    //             'amount' => 1000,
-    //             'currency' => 'jpy'
-    //         ));
-
-    //         return redirect(route('product.show',['id' => $product->id]));
-    //     }
-    //     catch(Exception $e)
-    //     {
-    //      \Session::flash('err_msg',config('message.Products.STOCK_MSG'));
-    //     }
-    // }
-    
-
     public function pay($id){
 
         $product = Product::find($id);
         if($product->stock > 0){
-        //     Stripe::setApiKey(env('STRIPE_SECRET'));//シークレットキー
     
-        //   $charge = Charge::create(array(
-        //        'amount' => $product->price,
-        //        'currency' => 'jpy',
-        //        'source'=> request()->stripeToken,
-        //    ));
-        //      $charge = Charge::create(array(
-        //           'amount' => 100,
-        //           'currency' => 'jpy',
-        //           'source'=> request()->stripeToken,
-        // ));
-
            $product->stock--;
            $product->save();
 

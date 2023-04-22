@@ -87,11 +87,14 @@ class Product extends Model
     }
 
     //検索
-    public static function searchProduct($products,$request){
-
+     public static function newsearchProduct($products,$request){
+       
         $keyword = $request->input('keyword');
         $company_id = $request->input('company_id');
-        
+        $upper = $request->input('upper'); //最大値
+        $lower = $request->input('lower'); //最小値
+        $high = $request->input('high'); //最大値
+        $low = $request->input('low'); 
         $query = Product::query();
 
         if(!empty($keyword)) {
@@ -102,20 +105,6 @@ class Product extends Model
         if(!empty($company_id)) {
             $query->where('company_id', 'LIKE', $company_id);
         }
-
-        $products = $query->get();
-        
-
-        return $products;
-    }
-
-    public static function newsearchProduct($products,$request){
-       
-        $upper = $request->input('upper'); //最大値
-        $lower = $request->input('lower'); //最小値
-        $high = $request->input('high'); //最大値
-        $low = $request->input('low'); 
-        $query = Product::query();
 
         if(!empty($upper)) {
             $query->where('price', '>=', $upper);
