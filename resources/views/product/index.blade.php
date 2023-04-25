@@ -9,6 +9,7 @@
   </p>
 @endif
 
+
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a href="{{ route('product.create') }}" class="btn btn-outline-secondary" role="button">
                 <i class="fa fa-reply mr-1 " aria-hidden="true"></i>{{ __('新規登録') }}</a>

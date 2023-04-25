@@ -61,7 +61,7 @@ $(function() {
     })
 
     .done(function(data) {
-        console.log(data);
+        // console.log(data);
 
         alert('成功');
         get_value(data);
@@ -150,8 +150,8 @@ $.each(data[0],function (key,value){
     }
     txt +=`
     
-    <td><button type="button" class="btn btn-primary" onclick="location.href='product/{{ $product->id }}">詳細</button></td>
-    <td><button type="button" class="btn btn-danger"  id="deleteTarget" data-id="$(id)">削除</button></td>
+    <td><button type="button" class="btn btn-primary" onclick="location.href='product/${id}'">詳細</button></td>
+    <td><button type="button" class="btn btn-danger"  id="deleteTarget" data-id="${id}">削除</button></td>
   
   </tr>`
   $('#table').append(txt);

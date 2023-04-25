@@ -19,19 +19,19 @@ class PaymentController extends Controller
         //    ));
         //  return back();
 
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        // Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        $customer = Customer::create(array(
-            'email' => $request->stripeEmail,
-            'source' => $request->stripeToken
-        ));
+        // $customer = Customer::create(array(
+        //     'email' => $request->stripeEmail,
+        //     'source' => $request->stripeToken
+        // ));
 
-        $charge = Charge::create(array(
-            'customer' => $customer->id,
-            'amount' => 1000,
-            'currency' => 'jpy'
-        ));
-         return back();
+        // $charge = Charge::create(array(
+        //     'customer' => $customer->id,
+        //     'amount' => 1000,
+        //     'currency' => 'jpy'
+        // ));
+        //  return back();
     }
 
 

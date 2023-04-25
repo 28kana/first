@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +16,7 @@ use App\Config;
 use Stripe\Stripe;
 use Stripe\Charge;
 use Stripe\Customer;
+
 
 class ProductController extends Controller
 
@@ -27,6 +29,7 @@ class ProductController extends Controller
     public function index(Request $request) {
         // dd($request);
         $products = Product::all();
+        $companies = Company::all();
         $keyword = $request->input('keyword');
         $products = Product::sortable()->get();
         // dd($products);
@@ -42,12 +45,11 @@ class ProductController extends Controller
         $products = Product::all();
         $keyword = $request->input('keyword');
         $products = Product::newsearchProduct($products,$request);
-        
+
         $json[] = $products;
         $products = Company::all();
-        $json[] = $companirs;
+        // $json[] = $companies;
         return response()->json($json);
-        return view('product.index')->with('product',$product);
 
     }
 
