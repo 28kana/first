@@ -41,7 +41,7 @@ class ProductController extends Controller
 
     //検索
     public function search(Request $request){
-        dd($request);
+        // $request->all();
         $products = Product::all();
         $keyword = $request->input('keyword');
         $products = Product::newsearchProduct($products,$request);
