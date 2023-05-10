@@ -23,7 +23,7 @@
   <label for="product_name">{{ __('商品名') }}<span class="badge badge-danger ml-2"></span></label>
     <input type="text" name="keyword" value="{{ $keyword }}" id="keyword">
     <!-- <button type="submit" value="検索" id="getProduct">検索</button>   -->
-    <input type="submit" value="検索"  id="getProduct">
+    <input type="button" value="検索"  id="getProduct">
 </div>
 
 <div>

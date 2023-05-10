@@ -62,8 +62,9 @@ $(function() {
 
     .done(function(data) {
         // console.log(data);
-
-        alert('成功');
+        console.log("OK");
+        // alert('成功');
+        // console.log("通ってる");
         get_value(data);
 
     })
@@ -112,44 +113,31 @@ function delete_data(){
     })
 };
 
-function  get_value(data){
+function get_value(data){
+console.log('飛んでる！');
 $('#table #product_tr').empty();
+console.log(data);
 $.each(data[0],function (key,value){
+  console.log(value);  
   let id = value.id;
   let name =value.product_name;
-  let company =value.company_id;
-
-  $.each(date[1],function(key,value){
-    if(company== value.id){
-      company = value.company_name;
-
-    }
-  })
+  let company_name =value.company_name;
   let price = value.price;
   let stock = value.stock;
   let comment = value.comment;
   let img_path = value.img_path;
-  if(comment == null){
-    comment = "なし";
-  }
+
   txt =`
     <tr id="product_tr">
-    <th scope="row">$(id)</th>
-    <td>$(name)</td>
-    <td>$(company)</td>
-    <td>$(price)</td>
-    <td>$(stock)</td>
-    <td>$(comment)</td>
+    <th >${id}</th>
+    <td id="img_path"><img src="storage/${img_path}" width="150" height="150" /></td>
+    <td>${name}</td>
+    <td>${price}</td>
+    <td>${stock}</td>
+    <td>${company_name}</td>
     `
-    if(img_path != null){
-      txt +=`
-      <td id="img_path"><img src="storage/${img_path}" width="150" height="150" /></td>`
-    }else{
-      txt +=`
-      <td id="img_path">画像なし</td>`
-    }
+
     txt +=`
-    
     <td><button type="button" class="btn btn-primary" onclick="location.href='product/${id}'">詳細</button></td>
     <td><button type="button" class="btn btn-danger"  id="deleteTarget" data-id="${id}">削除</button></td>
   

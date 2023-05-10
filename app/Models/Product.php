@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Company;
 use Kyslik\ColumnSortable\Sortable;
-
+use DB;
 
 class Product extends Model
 {
@@ -95,7 +95,7 @@ class Product extends Model
         $lower = $request->input('lower'); //最小値
         $high = $request->input('high'); //最大値
         $low = $request->input('low'); 
-        $query = Product::query();
+        $query = DB::table('products')->join('companies','companies.id','products.company_id');
 
         if(!empty($keyword)) {
             $query->where('product_name', 'LIKE', "%{$keyword}%");

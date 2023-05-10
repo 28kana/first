@@ -31,7 +31,7 @@ function buttonclick(){
         })
   
        .done(function(data) {
-        alert('成功');
+        console.log('成功');
         get_value(data);
 
         })

@@ -41,13 +41,12 @@ class ProductController extends Controller
 
     //検索
     public function search(Request $request){
-        // $request->all();
         $products = Product::all();
         $keyword = $request->input('keyword');
         $products = Product::newsearchProduct($products,$request);
 
         $json[] = $products;
-        $products = Company::all();
+        // $products = Company::all();
         // $json[] = $companies;
         return response()->json($json);
 
@@ -129,7 +128,7 @@ class ProductController extends Controller
             abort(500);
         }
         \Session::flash('err_msg',config('message.Products.DELETE_MSG'));
-        return redirect()->route('product.index',config('product','delete'));
+        // return redirect()->route('product.index',config('product','delete'));
 
         $products = Product::all();
         $json[] = $products;
