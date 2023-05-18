@@ -42,7 +42,7 @@
       
      
       <div class="d-flex justify-content-between pt-3">
-        <a href="{{ route('product.index') }}" class="btn btn-outline-secondary" role="button">
+        <a href="{{ route('product') }}" class="btn btn-outline-secondary" role="button">
             <i class="fa fa-reply mr-1" aria-hidden="true"></i>{{ __('戻る') }}
         </a>
     </tbody>

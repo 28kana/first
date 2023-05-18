@@ -80,11 +80,7 @@ class Product extends Model
              return $product;
               }
      
-    //削除処理
-    public function deleteProductById($id)
-    {
-        return $this->destroy($id);
-    }
+    
 
     //検索
      public static function newsearchProduct($products,$request){
@@ -95,7 +91,11 @@ class Product extends Model
         $lower = $request->input('lower'); //最小値
         $high = $request->input('high'); //最大値
         $low = $request->input('low'); 
-        $query = DB::table('products')->join('companies','companies.id','products.company_id');
+        
+        //テーブル結合して再表示させるためにテーブル内のデータを持ってくる
+        $query = DB::table('products')
+        ->select('products.*','companies.company_name')
+        ->join('companies','companies.id','products.company_id');
 
         if(!empty($keyword)) {
             $query->where('product_name', 'LIKE', "%{$keyword}%");

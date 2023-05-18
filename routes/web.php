@@ -23,8 +23,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/','ProductController@index')->name('product');
 Route::get('/create','ProductController@create')->name('create');
-// Route::get('/search/{keyword}/{company_id}/{upper}/{lower}/{higt}/{low}','ProductController@search');
-// Route::get('/search','ProductController@search');
 Route::get('/{keyword}','ProductController@search')->name('search');
 
 
@@ -32,7 +30,7 @@ Route::post('/store','ProductController@store')->name('store');
 Route::get('/show/{id}','ProductController@show')->name('show');
 Route::get('/edit/{id}','ProductController@edit')->name('edit');
 Route::post('/update','ProductController@update')->name('update');
-Route::delete('/destroy/{id}', 'ProductController@destroy')->name('destroy');
+Route::get('/destroy/{id}', 'ProductController@destroy')->name('destroy');
 Route::post('/pay/{id}', 'ProductController@pay')->name('product.pay');
 
 //機能

@@ -27,14 +27,13 @@ class ProductController extends Controller
     }
     //一覧
     public function index(Request $request) {
-        // dd($request);
+
         $products = Product::all();
         $companies = Company::all();
         $keyword = $request->input('keyword');
         $products = Product::sortable()->get();
-        // dd($products);
+        
         return view('product.index',compact('products','keyword'));
-        // return view('product.index',compact('products'));
 
 
     }
@@ -46,8 +45,7 @@ class ProductController extends Controller
         $products = Product::newsearchProduct($products,$request);
 
         $json[] = $products;
-        // $products = Company::all();
-        // $json[] = $companies;
+
         return response()->json($json);
 
     }
@@ -71,7 +69,7 @@ class ProductController extends Controller
         }
         \Session::flash('err_msg',config('message.Products.REGISTRATION_MSG'));
     
-        return redirect(route('product.index'));
+        return redirect(route('product'));
 
 
        
@@ -119,8 +117,7 @@ class ProductController extends Controller
     //削除
     public function destroy($id)
     {   
-        $product = Product::find($id);
-        $product->delete();
+    
         try{
             $product = Product::destroy($id);
         } catch(\Throwable $e){
@@ -128,13 +125,7 @@ class ProductController extends Controller
             abort(500);
         }
         \Session::flash('err_msg',config('message.Products.DELETE_MSG'));
-        // return redirect()->route('product.index',config('product','delete'));
-
-        $products = Product::all();
-        $json[] = $products;
-        $companies = Company::all();
-        $json[] = $companies;
-        return response()->json($json);
+        return response()->json(['result' => '成功']);
         
     }
     //決済

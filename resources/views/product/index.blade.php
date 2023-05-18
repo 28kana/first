@@ -22,7 +22,6 @@
 <div>
   <label for="product_name">{{ __('商品名') }}<span class="badge badge-danger ml-2"></span></label>
     <input type="text" name="keyword" value="{{ $keyword }}" id="keyword">
-    <!-- <button type="submit" value="検索" id="getProduct">検索</button>   -->
     <input type="button" value="検索"  id="getProduct">
 </div>
 
@@ -76,17 +75,7 @@
                 <td>{{ $product->stock }}</td>
                 <td>{{ $product->company->company_name }}</td>
                 <td><a href="{{ route('product.show', $product) }}" class="btn btn-primary">詳細</a></td>
-                <td> 
-                <form action="{{ route('product.destroy', $product->id) }}" method="POST">
-          @csrf
-          @method('DELETE')
-          <!-- <input type="submit" value="削除" class="btn btn-danger" onclick='return confirm("削除しますか？");'> -->
-          <input type="submit" value="削除" class="btn btn-danger" onclick="delete_data()" id="deleteTarget">
-
-                 </form>
-                </td> 
-            
-
+                <td><button type="button" value="削除" class="btn btn-danger deleteTarget" id="deleteTarget" data-id="{{ $product->id }}">削除</button></td>
             </tr>
 
         @endforeach

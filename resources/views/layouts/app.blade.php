@@ -47,8 +47,6 @@ $(function() {
     'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
     },
         url: '/search',
-        // url: '/search' + '/' + keyword,
-        // url: '/search/' + search_keyword + '/'+ search_id + '/'+ search_upper + '/'+ search_lower + '/'+ search_higt + '/'+ search_low,
         type: 'GET',
         data: {'keyword': search_keyword,
                 'company_id': search_id,
@@ -57,14 +55,10 @@ $(function() {
                 'higt': search_higt,
                 'low': search_low,
                 },
-        // dataType: 'json',
     })
 
     .done(function(data) {
-        // console.log(data);
         console.log("OK");
-        // alert('成功');
-        // console.log("通ってる");
         get_value(data);
 
     })
@@ -77,10 +71,12 @@ $(function() {
     })
 });
 //削除
-
-function delete_data(){
-  console.log('テスト');
-    $('#deleteTarget').on('click', '[id=deteleTarget]',function() {
+    $(function() {
+    console.log('テスト');
+    $(document).ready(function() {
+    // .deleteTargeを押下するとイベント発火
+    $('.deleteTarget').on('click', function() {
+        console.log('きた！'); 
       let deleteConfirm = confirm('削除してよろしいでしょうか？');
       let clickEle;
       let data_id;
@@ -90,46 +86,51 @@ function delete_data(){
       }else{
         return false;
       }
-  
+    console.log(clickEle);
+    console.log(data_id);
+    
         $.ajax({
 
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
          },
           url: '/destroy/' + data_id,
-          type: 'POST',
+          type: 'GET',
           data: {'id': data_id,
                  '_method': 'DELETE'},
         })
   
        .done(function(data) {
         console.log('成功');
-        get_value(data);
+        //削除の行を削除する
+        clickEle.parents('tr').remove();
+        
         })
   
        .fail(function(jqXHR,textStatus,errorThorown) {
           alert('エラー');
         });
     })
-};
+})
+});
+
 
 function get_value(data){
 console.log('飛んでる！');
 $('#table #product_tr').empty();
 console.log(data);
 $.each(data[0],function (key,value){
-  console.log(value);  
+  console.log(key);  
   let id = value.id;
   let name =value.product_name;
   let company_name =value.company_name;
   let price = value.price;
   let stock = value.stock;
-  let comment = value.comment;
   let img_path = value.img_path;
 
   txt =`
     <tr id="product_tr">
-    <th >${id}</th>
+    <th>${id}</th>
     <td id="img_path"><img src="storage/${img_path}" width="150" height="150" /></td>
     <td>${name}</td>
     <td>${price}</td>
