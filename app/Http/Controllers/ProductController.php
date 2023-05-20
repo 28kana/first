@@ -32,7 +32,7 @@ class ProductController extends Controller
         $companies = Company::all();
         $keyword = $request->input('keyword');
         $products = Product::sortable()->get();
-        
+
         return view('product.index',compact('products','keyword'));
 
 
@@ -131,19 +131,23 @@ class ProductController extends Controller
     //決済
     public function pay($id){
 
-        $product = Product::find($id);
-        if($product->stock > 0){
+        try{
+            $product = Product::find($id);
+            if($product->stock > 0){
     
-           $product->stock--;
-           $product->save();
+            $product->stock--;
+            $product->save();
 
-           Sale::newSale($product->id);
-           \DB::commit();
+            Sale::newSale($product->id);
+            \DB::commit();
            
-        }else{
+            }else{
             \Session::flash('err_msg',config('message.Products.STOCK_MSG'));
+            }
+        } catch(\Throwable $e){
+            \DB::rollback();
+            abort(500);
         }
-        
         \Session::flash('err_msg',config('message.Products.PAY_MSG'));
         return redirect(route('product.show',$product->id));
         }
